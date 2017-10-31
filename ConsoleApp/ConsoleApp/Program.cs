@@ -1,7 +1,10 @@
 ﻿using CalcLibrary;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,78 +12,77 @@ namespace ConsoleApp {
 
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("HipeCalc\n");
-            Console.WriteLine("Выебрите цифру\n" +
-                                "1-Сложение\n" +
-                                "2-Вычитание\n" +
-                                "3-Умножение\n" +
-                                "4-Деление\n" +
-                                "5-Остаток от деления\n" +
-                                "6-Возведение в степень\n");
+            var opers = GetLibraries();
 
-            switch (Console.ReadLine()) {
+            var calc = new Calculator();
 
-                case "1":
-                    Console.WriteLine("Введите 1-ое число");
-                    var operandSum1 = Console.ReadLine();
-                    Console.WriteLine("Введите 2-ое число");
-                    var opernadSum2 = Console.ReadLine();
-                    var calcSum = new Calculator();
-                    var resultSum = calcSum.Sum(operandSum1, opernadSum2);
-                    Console.WriteLine(string.Format("Результат = {0}", resultSum));
-                    break;
-                case "2":
-                    Console.WriteLine("Введите 1-ое число");
-                    var operandSub1 = Console.ReadLine();
-                    Console.WriteLine("Введите 2-ое число");
-                    var opernadSub2 = Console.ReadLine();
-                    var calcSub = new Calculator();
-                    var resultSub = calcSub.Sub(operandSub1, opernadSub2);
-                    Console.WriteLine(string.Format("Результат = {0}", resultSub));
-                    break;
-                case "3":
-                    Console.WriteLine("Введите 1-ое число");
-                    var operandMul1 = Console.ReadLine();
-                    Console.WriteLine("Введите 2-ое число");
-                    var opernadMul2 = Console.ReadLine();
-                    var calcMul = new Calculator();
-                    var resultMul = calcMul.Mul(operandMul1, opernadMul2);
-                    Console.WriteLine(string.Format("Результат = {0}", resultMul));
-                    break;
-                case "4":
-                    Console.WriteLine("Введите 1-ое число");
-                    var operandDiv1 = Console.ReadLine();
-                    Console.WriteLine("Введите 2-ое число");
-                    var opernadDiv2 = Console.ReadLine();
-                    var calcDiv = new Calculator();
-                    var resultDiv = calcDiv.Div(operandDiv1, opernadDiv2);
-                    Console.WriteLine(string.Format("Результат = {0}", resultDiv));
-                    break;
-                case "5":
-                    Console.WriteLine("Введите 1-ое число");
-                    var operandRemainder1 = Console.ReadLine();
-                    Console.WriteLine("Введите 2-ое число");
-                    var opernadRemainder2 = Console.ReadLine();
-                    var calcRemainder = new Calculator();
-                    var resultRemainder = calcRemainder.Remainder(operandRemainder1, opernadRemainder2);
-                    Console.WriteLine(string.Format("Результат = {0}", resultRemainder));
-                    break;
-                case "6":
-                    Console.WriteLine("Введите 1-ое число");
-                    var operandPow1 = Console.ReadLine();
-                    Console.WriteLine("Введите 2-ое число");
-                    var opernadPow2 = Console.ReadLine();
-                    var calcPow = new Calculator();
-                    var resultPow = calcPow.Pow(operandPow1, opernadPow2);
-                    Console.WriteLine(string.Format("Результат = {0}", resultPow));
-                    break;
-                default:
-                    Console.WriteLine("Такой цифры нет");
-                    break;
+            foreach (var op in opers) {
+                calc.Operations.Add(op);
             }
+            for (; ; ) {
+                Console.WriteLine("Выберите операцию");
+                var count = 0;
+                foreach (var oper in calc.Operations) {
+                    Console.WriteLine($"{++count}. {oper.Name}");
+                }
+                try {
+                    var operKey = Console.ReadLine();
+                    var operId = Convert.ToInt32(operKey);
+                    var operation = calc.Operations.ElementAt(operId - 1);
 
+                    Console.WriteLine("Введите числа, над которыми хотите произвести вычисления, через \nзапятую и без пробелов");
+                    var stringWithNumbers = Console.ReadLine();
+                    var resultFormat = stringWithNumbers.Replace(" ", "");
+                    var result = resultFormat.Split(',');
 
-            Console.ReadLine();
+                    double[] numbers = new double[result.Length];
+
+                    for (int i = 0; i < numbers.Length; i++) {
+                        if (result[i] != "")
+                            numbers[i] = Double.Parse(result[i], CultureInfo.InvariantCulture);
+                    }
+
+                    Console.WriteLine($"Результат: {operation.Excecute(numbers)}");
+                } catch (ArithmeticException) {
+                    Console.WriteLine("Введено недопустипое количество чисел");
+                } catch (Exception ex) {
+                    Console.WriteLine("Error! Введите корректные данные");
+                    Console.WriteLine($"Подробнее: {ex.Message}");
+                }
+
+            }
+        }
+
+        static IEnumerable<IOperation> GetLibraries() {
+
+            var result = new List<IOperation>();
+            // найти текущую дерикторию
+            var dir = Environment.CurrentDirectory + "\\Exts";
+            if (!Directory.Exists(dir))
+                return result;
+            // найти все файлы типа *.dll
+            var files = Directory.GetFiles(dir, "*.dll");
+            var needType = typeof(IOperation);
+            foreach (var item in files) {
+                // загрузить их
+                var dll = Assembly.LoadFrom(item);
+                // распаристь их по классам
+                var classes = dll.GetTypes();
+                // найти нужные классы
+                foreach (var cl in classes) {
+                    var interfaces = cl.GetInterfaces();
+
+                    if (interfaces.Any(i => i == needType)) {
+
+                        var instance = Activator.CreateInstance(cl) as IOperation;
+                        if (instance != null)
+                            result.Add(instance);
+
+                        // вывести на экран
+                    }
+                }
+            }
+            return result;
         }
 
     }
