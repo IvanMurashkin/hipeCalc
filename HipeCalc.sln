@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitCalcLibrary", "UnitCalc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HypeCalculator", "HypeCalculator\HypeCalculator.csproj", "{E4EDC455-F59F-4D50-98AB-22714196A6CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBModel", "DBModel\DBModel.csproj", "{74F47E30-3299-4BAB-98EF-2A50FD8FCC5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E4EDC455-F59F-4D50-98AB-22714196A6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4EDC455-F59F-4D50-98AB-22714196A6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4EDC455-F59F-4D50-98AB-22714196A6CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74F47E30-3299-4BAB-98EF-2A50FD8FCC5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74F47E30-3299-4BAB-98EF-2A50FD8FCC5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74F47E30-3299-4BAB-98EF-2A50FD8FCC5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74F47E30-3299-4BAB-98EF-2A50FD8FCC5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

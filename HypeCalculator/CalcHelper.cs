@@ -32,6 +32,7 @@ namespace HypeCalculator {
                     if (interfaces.Any(i => i == needType)) {
 
                         var instance = Activator.CreateInstance(cl) as IOperation;
+                        instance.IsCustom = true;
                         if (instance != null)
                             result.Add(instance);
 
@@ -39,6 +40,18 @@ namespace HypeCalculator {
                     }
                 }
             }
+            return result;
+        }
+
+        public static double[] StringConvert(string input) {
+            return input.Split(new char[] { ' ', ',' }).Select(s => s.ToDouble()).ToArray();
+        }
+
+        static double ToDouble(this string input) {
+            double result;
+            if (!double.TryParse(input, out result))
+                return double.NaN;
+
             return result;
         }
 

@@ -11,8 +11,6 @@ namespace CalcLibrary.Operations {
         public override int MinArgsCount => 2;
 
         public override double Excecute(double[] args) {
-            if (args.Length > MinArgsCount || args.Length < MinArgsCount)
-                throw new ArithmeticException();
 
             return Math.Pow(args[0], args[1]);
         }

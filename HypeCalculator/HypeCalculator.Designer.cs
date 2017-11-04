@@ -23,6 +23,7 @@
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.btnExit = new System.Windows.Forms.Button();
             this.textBoxInput = new System.Windows.Forms.TextBox();
             this.inputDate = new System.Windows.Forms.Label();
@@ -32,7 +33,8 @@
             this.labelResult = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
             this.labelRes = new System.Windows.Forms.Label();
-            this.btnLike = new System.Windows.Forms.Button();
+            this.btnLikeOrDel = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnExit
@@ -52,6 +54,8 @@
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(121, 20);
             this.textBoxInput.TabIndex = 1;
+            this.textBoxInput.Click += new System.EventHandler(this.textBoxInput_Click);
+            this.textBoxInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxInput_KeyUp);
             // 
             // inputDate
             // 
@@ -115,23 +119,27 @@
             this.labelRes.TabIndex = 8;
             this.labelRes.Text = " ";
             // 
-            // btnLike
+            // btnLikeOrDel
             // 
-            this.btnLike.Location = new System.Drawing.Point(246, 7);
-            this.btnLike.Name = "btnLike";
-            this.btnLike.Size = new System.Drawing.Size(75, 23);
-            this.btnLike.TabIndex = 9;
-            this.btnLike.Text = "Like";
-            this.btnLike.UseVisualStyleBackColor = true;
-            this.btnLike.Visible = false;
-            this.btnLike.Click += new System.EventHandler(this.btnLike_Click);
+            this.btnLikeOrDel.Location = new System.Drawing.Point(246, 7);
+            this.btnLikeOrDel.Name = "btnLikeOrDel";
+            this.btnLikeOrDel.Size = new System.Drawing.Size(75, 23);
+            this.btnLikeOrDel.TabIndex = 9;
+            this.btnLikeOrDel.Text = "Like";
+            this.btnLikeOrDel.UseVisualStyleBackColor = true;
+            this.btnLikeOrDel.Click += new System.EventHandler(this.btnLikeOrDel_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // HypeCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 362);
-            this.Controls.Add(this.btnLike);
+            this.Controls.Add(this.btnLikeOrDel);
             this.Controls.Add(this.labelRes);
             this.Controls.Add(this.labelResult);
             this.Controls.Add(this.btnCalc);
@@ -163,7 +171,8 @@
         private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.Label labelRes;
-        private System.Windows.Forms.Button btnLike;
+        private System.Windows.Forms.Button btnLikeOrDel;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

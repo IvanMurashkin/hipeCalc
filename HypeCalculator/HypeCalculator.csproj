@@ -54,7 +54,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringExctension.cs" />
     <EmbeddedResource Include="HypeCalculator.resx">
       <DependentUpon>HypeCalculator.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +83,10 @@
     <ProjectReference Include="..\CalcLibrary\CalcLibrary.csproj">
       <Project>{AB67A971-1F8C-40CF-A83F-96CE4E838321}</Project>
       <Name>CalcLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBModel\DBModel.csproj">
+      <Project>{74F47E30-3299-4BAB-98EF-2A50FD8FCC5D}</Project>
+      <Name>DBModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
