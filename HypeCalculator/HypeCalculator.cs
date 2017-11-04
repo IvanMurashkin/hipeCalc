@@ -24,8 +24,11 @@ namespace HypeCalculator {
 
         private IList<string> Favorites { get; set; }
 
+        private IList<string> heavyOperations { get; set; }
+
         public HypeCalculator() {
             InitializeComponent();
+            heavyOperations = DB.GetHeavyOperations();
             Favorites = new List<string>();
             foreach (var fav in DB.GetFavorits()) {
                 AddFavoriteButton(fav.Name, Favorites.Count());
@@ -140,24 +143,54 @@ namespace HypeCalculator {
         private void Calculate() {
             timer1.Stop();
 
-            Stopwatch stopwatch = new Stopwatch();
-
+            // понять какая операция выбрана
             if (currentOperation == null)
                 return;
 
             if (string.IsNullOrWhiteSpace(textBoxInput.Text))
                 return;
 
-            var inputData = CalcHelper.StringConvert(textBoxInput.Text);
+            var args = textBoxInput.Text.Trim();
 
-            // если входные данные те же
+            double? result;
 
-            stopwatch.Start();
+            OperationHistory history = null;
+
+            if (!heavyOperations.Contains(currentOperation.Name)) {
+                result = Calculate(args, out history);
+            }
+            else {
+                var dbResult = DB.GetOperationHistory(currentOperation.Name, args);
+                if (dbResult != null) {
+                    result = dbResult.Result;
+                }
+                else {
+                    result = Calculate(args, out history);
+                }
+            }
+
+            labelResult.Text = $"{result}";
+
+            if (history != null) {
+                DB.AddOperationHistory(history);
+            }
+        }
+
+        private double? Calculate(string args, out OperationHistory history) {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            var inputData = CalcHelper.StringConvert(args);
             var result = currentOperation.Excecute(inputData);
-            stopwatch.Stop();
+            stopWatch.Stop();
 
-            labelRes.Text = $"{result}";
-            DB.AddOperationHistory(new OperationHistory(currentOperation.Name, textBoxInput.Text, result, stopwatch.ElapsedMilliseconds));
+            history = new OperationHistory() {
+                Name = currentOperation.Name,
+                Result = result,
+                Args = args,
+                ExcecTime = stopWatch.ElapsedMilliseconds
+            };
+
+            return result;
         }
 
         private void textBoxInput_Click(object sender, EventArgs e) {
