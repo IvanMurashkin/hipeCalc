@@ -23,5 +23,7 @@ namespace CalcLibrary {
         /// <param name="args">Входные данные</param>
         /// <returns>Результат</returns>
         double Excecute(double[] args);
+
+        bool IsCustom { get; set; }
     }
 }
