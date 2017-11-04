@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebCalc.Models {
+    public class OperViewModel {
+
+        public string OperName { get; set; }
+
+        public string Args { get; set; }
+
+        public double? Result { get; set; }
+
+    }
+}

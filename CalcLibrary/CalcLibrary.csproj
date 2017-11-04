@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalcHelper.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="IOperation.cs" />
     <Compile Include="Operations\BaseOperation.cs" />

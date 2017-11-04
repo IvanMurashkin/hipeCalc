@@ -1,0 +1,27 @@
+﻿
+@model WebCalc.Models.OperViewModel
+
+@{
+    ViewBag.Title = "Calculator";
+
+    var operName = Model.OperName;
+    var args = Model.Args;
+    var result = Model.Result;
+
+}
+<div class="wrap-calc ">
+    <h2>Calculator</h2>
+
+    @using (Html.BeginForm("Index", "Calc", FormMethod.Post, new { @class = "form-group", style = "margin-bottom:40px" })) {
+        @Html.Label("Operations:")
+        @Html.DropDownList("operName", ViewBag.Operations as SelectList, null, new { @class = "form-control calcItem" })
+        @Html.ActionLink("Like", "Like", null, new { @class = "btn btn-primary", style = "margin-left:3px;"})
+        <div class="favoriteOperation">Favorite operations...</div>
+        @Html.Label("Input data:")
+        @Html.TextBox("args", null, new { @class = "form-control calcItem", value = args })
+
+        <input type="submit" class="btn btn-primary" value="Calc" style="display: inline-block"/>
+    }
+
+    <h3>Result: @result</h3>
+</div>
