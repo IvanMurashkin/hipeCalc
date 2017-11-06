@@ -41,9 +41,9 @@ textarea {
 .favoriteOperation {
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 380px;
-    height: 190px;
-    overflow: auto;
-    border: 1px solid #ccc;
+    width: 366px;
+    padding: 5px;
+    max-height: 190px;
+    overflow-y: auto;
     border-radius: 3px;
 }
