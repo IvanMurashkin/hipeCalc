@@ -47,3 +47,7 @@ textarea {
     overflow-y: auto;
     border-radius: 3px;
 }
+
+.btn-success {
+    margin-bottom: 5px;
+}

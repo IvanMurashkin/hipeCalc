@@ -31,13 +31,13 @@ namespace WebCalc.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string favOperName)
         {
-
+            
             var model = new OperViewModel();
             model.Favorites = favorites;
 
-            ViewBag.Operations = new SelectList(Calc.Operations, "Name", "Name");
+            ViewBag.Operations = new SelectList(Calc.Operations, "Name", "Name", favOperName);
 
             return View(model);
         }
@@ -72,6 +72,10 @@ namespace WebCalc.Controllers
             DB.AddFavorite(new Favorite(operName));
             //отображение кнопки
             return PartialView("Like", operName);
+        }
+
+        public PartialViewResult GetFavoritesOperation() {
+            return PartialView(favorites);
         }
 
     }

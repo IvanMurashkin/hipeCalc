@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitCalcLibrary", "UnitCalc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCalc", "WebCalc\WebCalc.csproj", "{8F24FBBA-B8BE-4F78-B711-A9DF642100F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBModel", "..\HypeCalc\DBModel\DBModel.csproj", "{907B1280-AAC4-4983-AA10-9418FB5FF8C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8F24FBBA-B8BE-4F78-B711-A9DF642100F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F24FBBA-B8BE-4F78-B711-A9DF642100F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F24FBBA-B8BE-4F78-B711-A9DF642100F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{907B1280-AAC4-4983-AA10-9418FB5FF8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907B1280-AAC4-4983-AA10-9418FB5FF8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{907B1280-AAC4-4983-AA10-9418FB5FF8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{907B1280-AAC4-4983-AA10-9418FB5FF8C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

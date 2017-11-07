@@ -1,0 +1,6 @@
+﻿@model IEnumerable<DBModel.Model.Favorite>
+
+@foreach(var item in Model) {
+    <li>@Html.ActionLink(item.Name, "Index", "Calc", new { favOperName = item.Name }, new { @class = "operToolBar" })</li>
+}
+

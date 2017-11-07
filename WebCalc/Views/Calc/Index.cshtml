@@ -18,9 +18,10 @@
         @Html.DropDownList("operName", ViewBag.Operations as SelectList, null, new { @class = "form-control calcItem" })
         <button type="button" class="btn btn-primary" onclick="Like()">Like</button>
         <div class="favoriteOperation">
-            @Html.DisplayFor(m=>m.Favorites);
+            @Html.DisplayFor(m=>m.Favorites)
         </div>
         @Html.Label("Input data:")
+        @Html.ValidationMessageFor(o=>o.Args);
         @Html.TextBox("args", null, new { @class = "form-control calcItem", value = args })
 
         <input type="submit" class="btn btn-primary" value="Calc" style="display: inline-block"/>
@@ -34,6 +35,7 @@
 </div>
 
 <script type="text/javascript">
+
     function Like() {
         var operName = $("#operName").val();
         $.ajax({
@@ -45,7 +47,6 @@
                 if (!btn.failed) {
                     $(".favoriteOperation").append(btn);
                 }
-                alert("Run");
             });
     }
 </script>

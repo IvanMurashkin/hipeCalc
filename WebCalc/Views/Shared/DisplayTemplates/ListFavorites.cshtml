@@ -1,0 +1,15 @@
+﻿@model IEnumerable<DBModel.Model.Favorite>
+
+@foreach(var item in Model) {
+    @Html.DisplayFor(modelItem => item)
+}
+
+<script type="text/javascript">
+
+    function LikeSubmit(elem) {
+        var operName = $(elem).attr("value");
+        $("#operName").val(operName);
+        $("form").submit();
+    }
+
+</script>
