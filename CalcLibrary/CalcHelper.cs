@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace CalcLibrary {
     public static class CalcHelper {
 
-        public static IEnumerable<IOperation> GetOperations() {
+        public static IEnumerable<IOperation> GetOperations(string extDir = "") {
 
             var result = new List<IOperation>();
             // найти текущую дерикторию
-            var dir = Environment.CurrentDirectory + "\\Exts";
+            var dir = !string.IsNullOrWhiteSpace(extDir) ? extDir : Environment.CurrentDirectory + "\\Exts";
             if (!Directory.Exists(dir))
                 return result;
             // найти все файлы типа *.dll

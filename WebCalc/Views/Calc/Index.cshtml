@@ -8,6 +8,7 @@
     var args = Model.Args;
     var result = Model.Result;
 
+    var error = ViewBag.Error as string;
 }
 <div class="wrap-calc ">
     <h2>Calculator</h2>
@@ -15,8 +16,10 @@
     @using (Html.BeginForm("Index", "Calc", FormMethod.Post, new { @class = "form-group", style = "margin-bottom:40px" })) {
         @Html.Label("Operations:")
         @Html.DropDownList("operName", ViewBag.Operations as SelectList, null, new { @class = "form-control calcItem" })
-        @Html.ActionLink("Like", "Like", null, new { @class = "btn btn-primary", style = "margin-left:3px;"})
-        <div class="favoriteOperation"></div>
+        <button type="button" class="btn btn-primary" onclick="Like()">Like</button>
+        <div class="favoriteOperation">
+            @Html.DisplayFor(m=>m.Favorites);
+        </div>
         @Html.Label("Input data:")
         @Html.TextBox("args", null, new { @class = "form-control calcItem", value = args })
 
@@ -24,4 +27,25 @@
     }
 
     <h3>Result: @result</h3>
+
+    @if(!string.IsNullOrWhiteSpace(error)) {
+        <div class="alert alert-warning" role="alert">@ViewBag.Error</div>
+    }
 </div>
+
+<script type="text/javascript">
+    function Like() {
+        var operName = $("#operName").val();
+        $.ajax({
+            method: "POST",
+            url: "@Url.Action("Like", "Calc")",
+            data: { operName: operName }
+        })
+            .done(function (btn) {
+                if (!btn.failed) {
+                    $(".favoriteOperation").append(btn);
+                }
+                alert("Run");
+            });
+    }
+</script>
